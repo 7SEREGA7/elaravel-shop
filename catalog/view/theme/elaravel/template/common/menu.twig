@@ -1,0 +1,36 @@
+{% if categories %}
+<div class="menu-container">
+  <nav id="menu" class="navbar">
+    <div class="navbar__header">
+      <button type="button" class="open-btn" data-toggle="collapse" data-target=".navbar-ex1-collapse"><i class="fa fa-bars open-menu-img"></i><span>{{ text_category }}</span></button>
+    </div>
+    <div class="collapse navbar-ex1-collapse categories">
+      <ul class="categories__menu">
+        {% for category in categories %}
+        {% if category.children %}
+        <li class="dropright categories__item">
+          <a href="{{ category.href }}" class="dropdown-toggle" data-toggle="dropdown">
+            {{ category.name }}
+            <img src="./image/right-arrow.png" alt="">
+          </a>
+          <div class="dropdown-menu inner-menu">
+            <div class="dropdown-inner inner-menu__container"> {% for children in category.children|batch(category.children|length / category.column|round(1, 'ceil')) %}
+              <ul class="inner-menu__items">
+                {% for child in children %}
+                <li class="inner-menu__item"><a href="{{ child.href }}">{{ child.name }}</a></li>
+                {% endfor %}
+              </ul>
+              {% endfor %}
+            </div>
+            <img src="./image/category-img.png" alt="...">
+          </div>
+        </li>
+        {% else %}
+        <li class="dropright categories__item item-without-dropdown" ><a href="{{ category.href }}">{{ category.name }}</a></li>
+        {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+  </nav>
+</div>
+{% endif %} 

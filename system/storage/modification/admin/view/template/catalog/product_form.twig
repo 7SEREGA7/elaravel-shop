@@ -55,6 +55,20 @@
                           <div class="text-danger">{{ error_name[language.language_id] }}</div>
                         {% endif %} </div>
                     </div>
+
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label" for="input-header{{ language.language_id }}"><span data-toggle="tooltip" title="{{ help_header }}">{{ entry_header }}</span></label>
+                    <div class="col-sm-10">
+                      <input type="text" name="product_description[{{ language.language_id }}][header]" value="{{ product_description[language.language_id] ? product_description[language.language_id].header }}" placeholder="{{ entry_header }}" id="input-header{{ language.language_id }}" class="form-control" />
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label" for="input-short-description{{ language.language_id }}">{{ entry_short_description }}<br /><button type="button" class="btn btn-primary btn-xs summernote" data-toggle="button" aria-pressed="false" autocomplete="off" data-language="{{ language.language_id }}">Summernote</button></label>
+                    <div class="col-sm-10">
+                      <textarea name="product_description[{{ language.language_id }}][short_description]" placeholder="{{ entry_short_description }}" id="input-short-description{{ language.language_id }}" class="form-control">{{ product_description[language.language_id] ? product_description[language.language_id].short_description }}</textarea>
+                     </div>
+                  </div>
+        
                     <div class="form-group">
                       <label class="col-sm-2 control-label" for="input-description{{ language.language_id }}">{{ entry_description }}</label>
                       <div class="col-sm-10">
@@ -398,8 +412,21 @@
                 <div class="col-sm-10">
                   <input type="text" name="category" value="" placeholder="{{ entry_category }}" id="input-category" class="form-control"/>
                   <div id="product-category" class="well well-sm" style="height: 150px; overflow: auto;"> {% for product_category in product_categories %}
-                      <div id="product-category{{ product_category.category_id }}"><i class="fa fa-minus-circle"></i> {{ product_category.name }}
+                      
+                    {% if main_category and main_category == product_category.category_id %}
+                    <div id="product-category{{ product_category.category_id }}" class="text-success"><i class="fa fa-minus-circle"></i> <i class="fa fa-dot-circle-o" data-toggle="tooltip" title="{{ help_main_category }}"></i> {{ product_category.name }}
+        
                         <input type="hidden" name="product_category[]" value="{{ product_category.category_id }}"/>
+
+                      <input type="hidden" name="main_category" value="{{ product_category.category_id }}" />
+                    </div>
+                    {% else %}
+                    <div id="product-category{{ product_category.category_id }}"><i class="fa fa-minus-circle"></i> <i class="fa fa-circle-o" data-toggle="tooltip" title="{{ help_main_category_add }}"></i> {{ product_category.name }}
+                      <input type="hidden" name="product_category[]" value="{{ product_category.category_id }}" />
+                    </div>
+                    {% endif %}
+                    <div class="hidden">
+        
                       </div>
                     {% endfor %}</div>
                 </div>
@@ -447,8 +474,40 @@
                 <div class="col-sm-10">
                   <input type="text" name="related" value="" placeholder="{{ entry_related }}" id="input-related" class="form-control"/>
                   <div id="product-related" class="well well-sm" style="height: 150px; overflow: auto;"> {% for product_related in product_relateds %}
-                      <div id="product-related{{ product_related.product_id }}"><i class="fa fa-minus-circle"></i> {{ product_related.name }}
-                        <input type="hidden" name="product_related[]" value="{{ product_related.product_id }}"/>
+                      
+                    <div id="product-related{{ product_related.product_id }}"><i class="fa fa-minus-circle"></i> 
+                      {% if product_related.route and product_related.route > 0 %}
+                      <i class="fa fa-long-arrow-right"></i> 
+                      {% elseif product_related.route and product_related.route < 0 %}
+                      <i class="fa fa-long-arrow-left"></i> 
+                      {% else %}
+                      <i class="fa fa-exchange"></i> 
+                      {% endif %}
+                      {{ product_related.name }}
+                      <input type="hidden" name="product_related[{{ product_related.product_id }}][product_id]" value="{{ product_related.product_id }}" />
+                      <input type="hidden" name="product_related[{{ product_related.product_id }}][route]" value="{{ product_related.route }}" />
+                    </div>
+                    {% endfor %}</div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-related-information"><span data-toggle="tooltip" title="{{ help_related }}">{{ entry_related_information }}</span></label>
+                <div class="col-sm-10">
+                  <input type="text" name="related_information" value="" placeholder="{{ entry_related_information }}" id="input-related-information" class="form-control" />
+                  <div id="information-related" class="well well-sm" style="height: 150px; overflow: auto;"> {% for information_related in information_relateds %}
+                    <div id="information-related{{ information_related.information_id }}"><i class="fa fa-minus-circle"></i> 
+                      {% if information_related.route and information_related.route > 0 %}
+                      <i class="fa fa-long-arrow-right"></i> 
+                      {% elseif information_related.route and information_related.route < 0 %}
+                      <i class="fa fa-long-arrow-left"></i> 
+                      {% else %}
+                      <i class="fa fa-exchange"></i> 
+                      {% endif %}
+                      {{ information_related.title }}
+                      <input type="hidden" name="information_related[{{ information_related.information_id }}][information_id]" value="{{ information_related.information_id }}" />
+                      <input type="hidden" name="information_related[{{ information_related.information_id }}][route]" value="{{ information_related.route }}" />
+        
+                        
                       </div>
                     {% endfor %}</div>
                 </div>
@@ -1175,7 +1234,7 @@
   $('input[name=\'category\']').autocomplete({
 	  'source': function(request, response) {
 		  $.ajax({
-			  url: 'index.php?route=catalog/category/autocomplete&user_token={{ user_token }}&filter_name=' + encodeURIComponent(request),
+			  url: 'index.php?route=catalog/category/autocomplete&user_token={{ user_token }}&filter_information=0&filter_name=' + encodeURIComponent(request),
 			  dataType: 'json',
 			  success: function(json) {
 				  response($.map(json, function(item) {
@@ -1192,7 +1251,9 @@
 
 		  $('#product-category' + item['value']).remove();
 
-		  $('#product-category').append('<div id="product-category' + item['value'] + '"><i class="fa fa-minus-circle"></i> ' + item['label'] + '<input type="hidden" name="product_category[]" value="' + item['value'] + '" /></div>');
+		  
+        $('#product-category').append('<div id="product-category' + item['value'] + '"><i class="fa fa-minus-circle"></i> <i class="fa fa-circle-o" data-toggle="tooltip" title="{{ help_main_category_add }}"></i> ' + item['label'] + '<input type="hidden" name="product_category[]" value="' + item['value'] + '" /></div>');
+        
 	  }
   });
 
@@ -1200,6 +1261,24 @@
 	  $(this).parent().remove();
   });
 
+
+$('#product-category').delegate('.fa-circle-o', 'click', function() {
+	$('#product-category div').children('.fa-dot-circle-o').toggleClass('fa-circle-o fa-dot-circle-o');
+    $('#product-category div').removeClass('text-success');
+    $(this).toggleClass('fa-circle-o fa-dot-circle-o');
+    $(this).parent().addClass('text-success');
+    $('input[name=\'main_category\']').remove();
+    $(this).parent().append('<input type="hidden" name="main_category" value="' + $(this).parent().find('input[name=\'product_category[]\']').val() + '" />');
+	$('#product-category div').children('.fa-circle-o').attr({'title':'{{ help_main_category_add }}', 'data-original-title':'{{ help_main_category_add }}'});
+    $(this).attr({'title':'{{ help_main_category }}', 'data-original-title':'{{ help_main_category }}'});
+});
+$('#product-category').delegate('.fa-dot-circle-o', 'click', function() {
+    $(this).toggleClass('fa-circle-o fa-dot-circle-o');
+    $('input[name=\'main_category\']').remove();
+    $(this).parent().removeClass('text-success');
+    $(this).attr({'title':'{{ help_main_category_add }}', 'data-original-title':'{{ help_main_category_add }}'});
+});
+        
   // Filter
   $('input[name=\'filter\']').autocomplete({
 	  'source': function(request, response) {
@@ -1262,7 +1341,7 @@
   $('input[name=\'related\']').autocomplete({
 	  'source': function(request, response) {
 		  $.ajax({
-			  url: 'index.php?route=catalog/product/autocomplete&user_token={{ user_token }}&filter_name=' + encodeURIComponent(request),
+			  url: 'index.php?route=catalog/product/autocomplete&user_token={{ user_token }}{% if product_id %}&product_id={{ product_id }}{% endif %}&filter_name=' + encodeURIComponent(request),
 			  dataType: 'json',
 			  success: function(json) {
 				  response($.map(json, function(item) {
@@ -1279,11 +1358,75 @@
 
 		  $('#product-related' + item['value']).remove();
 
-		  $('#product-related').append('<div id="product-related' + item['value'] + '"><i class="fa fa-minus-circle"></i> ' + item['label'] + '<input type="hidden" name="product_related[]" value="' + item['value'] + '" /></div>');
+		  
+		$('#product-related').append('<div id="product-related' + item['value'] + '"><i class="fa fa-minus-circle"></i> <i class="fa fa-exchange"></i> ' + item['label'] + '<input type="hidden" name="product_related[' + item['value'] + '][product_id]" value="' + item['value'] + '" /><input type="hidden" name="product_related[' + item['value'] + '][route]" value="0" /></div>');
+        
 	  }
   });
 
+
+$('#product-related').delegate('.fa-exchange', 'click', function() {
+    $(this).toggleClass('fa-exchange fa-long-arrow-right');
+	$(this).parent().find('input[name$=\'[route]\']').val('1');
+});
+$('#product-related').delegate('.fa-long-arrow-right', 'click', function() {
+    $(this).toggleClass('fa-long-arrow-right fa-long-arrow-left');
+	$(this).parent().find('input[name$=\'[route]\']').val('-1');
+});
+$('#product-related').delegate('.fa-long-arrow-left', 'click', function() {
+    $(this).toggleClass('fa-long-arrow-left fa-exchange');
+	$(this).parent().find('input[name$=\'[route]\']').val('0');
+});
+        
   $('#product-related').delegate('.fa-minus-circle', 'click', function() {
+
+	$(this).parent().remove();
+});
+
+// Related Information
+$('input[name=\'related_information\']').autocomplete({
+	'source': function(request, response) {
+		$.ajax({
+			url: 'index.php?route=catalog/information/autocomplete&user_token={{ user_token }}&filter_name=' +  encodeURIComponent(request),
+			dataType: 'json',
+			success: function(json) {
+				response($.map(json, function(item) {
+					return {
+						label: item['title'],
+						value: item['information_id']
+					}
+				}));
+			}
+		});
+	},
+	'select': function(item) {
+		$('input[name=\'related_information\']').val('');
+
+		$('#information-related' + item['value']).remove();
+
+		$('#information-related').append('<div id="information-related' + item['value'] + '"><i class="fa fa-minus-circle"></i> <i class="fa fa-exchange"></i> ' + item['label'] + '<input type="hidden" name="information_related[' + item['value'] + '][information_id]" value="' + item['value'] + '" /><input type="hidden" name="information_related[' + item['value'] + '][route]" value="0" /></div>');
+	}
+});
+
+$('#information-related').delegate('.fa-minus-circle', 'click', function() {
+	$(this).parent().remove();
+});
+
+$('#information-related').delegate('.fa-exchange', 'click', function() {
+    $(this).toggleClass('fa-exchange fa-long-arrow-right');
+	$(this).parent().find('input[name$=\'[route]\']').val('1');
+});
+$('#information-related').delegate('.fa-long-arrow-right', 'click', function() {
+    $(this).toggleClass('fa-long-arrow-right fa-long-arrow-left');
+	$(this).parent().find('input[name$=\'[route]\']').val('-1');
+});
+$('#information-related').delegate('.fa-long-arrow-left', 'click', function() {
+    $(this).toggleClass('fa-long-arrow-left fa-exchange');
+	$(this).parent().find('input[name$=\'[route]\']').val('0');
+});
+
+$('#information-related').delegate('.fa-minus-circle', 'click', function() {
+        
 	  $(this).parent().remove();
   });
   //--></script>
@@ -1642,4 +1785,34 @@
   $('#option a:first').tab('show');
   //--></script>
 </div>
+
+  <style type="text/css"><!--
+#product-category .fa-circle-o {
+    display: none;
+}
+#product-category div:hover .fa-circle-o {
+    display: inline;
+}
+--></style>
+  <script type="text/javascript"><!--
+$('.summernote').on('click', function () {
+	if ($(this).hasClass('active')) {
+		$('#input-short-description' + $(this).data('language')).summernote('destroy');
+	} else {
+		$('#input-short-description' + $(this).data('language')).summernote({
+			focus: true,
+			lang: '{{ summernote }}'
+		});
+	}
+})
+
+$(document).ready(function() {
+	$('[name*=\'[short_description]\']').each(function() {
+		if ($(this).val()) {
+            $(this).parent().prev().children('.summernote').trigger('click');
+		}
+	});
+});
+//--></script>
+        
 {{ footer }} 

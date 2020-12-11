@@ -14,6 +14,7 @@ $_['entry_dimension']  = 'Размеры (Ширина x Высота)';
 $_['entry_width']      = 'Ширина';
 $_['entry_height']     = 'Высота';
 $_['entry_status']     = 'Статус';
+$_['entry_template']     = 'Шаблон';
 
 // Error
 $_['error_permission'] = 'У Вас нет прав для управления данным модулем!';

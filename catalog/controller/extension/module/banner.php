@@ -18,6 +18,7 @@ class ControllerExtensionModuleBanner extends Controller {
 			if (is_file(DIR_IMAGE . $result['image'])) {
 				$data['banners'][] = array(
 					'title' => $result['title'],
+					'description' => $result['description'],
 					'link'  => $result['link'],
 					'image' => $this->model_tool_image->resize($result['image'], $setting['width'], $setting['height'])
 				);
@@ -26,6 +27,21 @@ class ControllerExtensionModuleBanner extends Controller {
 
 		$data['module'] = $module++;
 
-		return $this->load->view('extension/module/banner', $data);
+		$template = 'banner';
+		// print_r($setting['template']);
+
+		// if($setting['template'] == 0){
+			// $template = 'banner';
+		// } elseif($setting['template'] == 1){
+		// 	$template = 'banner2';
+		// } elseif($setting['template'] == 2){
+		// 	$template = 'banner3';
+		// } elseif($setting['template'] == 3){
+		// 	$template = 'banner4';
+		// }
+
+		return $this->load->view('extension/module/' . $template, $data, 'banner_id');
+
+		// return $this->load->view('extension/module/banner', $data, 'banner_id');
 	}
 }

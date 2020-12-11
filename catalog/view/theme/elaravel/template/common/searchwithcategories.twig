@@ -1,0 +1,40 @@
+<div id="search-categories" class="search">
+  <input type="text" name="search" value="{{ search }}" placeholder="{{ text_search }}" class="search__input" />
+  <select name="category_id" class="search__select" id="search__select">
+    <option value="0">{{ text_category }}</option>
+    {% for category_1 in categories %}
+    <option value="{{ category_1.category_id }}"{% if category_1.category_id == category_id %} selected="selected"{% endif %}>{{ category_1.name }}</option>
+    {% for category_2 in category_1.children %}
+    <option value="{{ category_2.category_id }}"{% if category_2.category_id == category_id %} selected="selected"{% endif %}>{{ category_2.name }}</option>
+    {% for category_3 in category_2.children %}
+    <option value="{{ category_3.category_id }}"{% if category_3.category_id == category_id %} selected="selected"{% endif %}>{{ category_3.name }}</option>
+    {% endfor %}
+    {% endfor %}
+    {% endfor %}
+  </select>
+  <button type="button" class="search__btn">
+    <img src="./image/search.png" alt="search">
+  </button>
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#search-categories button').on('click', function() {
+      url = $('base').attr('href') + 'index.php?route=product/search';
+      var value = $('#search-categories input[name=\'search\']').val();
+      if (value) {
+        url += '&search=' + encodeURIComponent(value);
+      }
+      var category = $('#search-categories select[name=\'category_id\']').prop('value');
+      if (category>0) {
+        url += '&category_id=' + encodeURIComponent(category);
+      }
+      location = url;
+    });
+    $('#search-categories input[name=\'search\']').on('keydown', function(e) {
+      if (e.keyCode == 13) {
+        $('#search-categories button').trigger('click');
+      }
+    });
+  });
+</script>

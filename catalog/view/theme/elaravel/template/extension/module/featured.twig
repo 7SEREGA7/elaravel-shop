@@ -1,0 +1,20 @@
+ {% for product in products %}
+ <div class="products__product first-products__product">
+  <a class="products__product-title" href="{{ product.href }}">{{ product.name }}</a>
+  <a class="products__img" href="{{ product.href }}"><img src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}" class="img-responsive" /></a>
+  {% if product.price %}
+  <p class="products__price-block">
+    {% if not product.special %}
+    <span class="products__price">{{ product.price }}</span>
+    {% else %}
+    <span class="products__price-new">{{ product.special }}</span> <span class="products__price-old">{{ product.price }}</span>
+    {% endif %}
+  </p>
+  {% endif %}
+  <div class="products__buttons">
+    <button class="products__btn" data-toggle="tooltip" title="{{ button_compare }}" onclick="compare.add('{{ product.product_id }}');"><img src="./image/compare.png" alt="compare"></button>
+    <button class="products__btn" data-toggle="tooltip" title="{{ button_cart }}" onclick="cart.add('{{ product.product_id }}');"><img src="./image/green-cart.png" alt="cart"><span class="hidden-xs hidden-sm">Add to cart</span></button>
+    <button class="products__btn" data-toggle="tooltip" title="{{ button_wishlist }}" onclick="wishlist.add('{{ product.product_id }}');"><img src="./image/wish-list.png" alt="wish-list"></button>
+  </div>
+</div>
+{% endfor %}

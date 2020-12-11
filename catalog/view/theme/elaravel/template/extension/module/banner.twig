@@ -1,0 +1,69 @@
+{% if module == 0 %}
+
+<div class="first-banner" id="banner{{ module }}">
+  <div  class="first-banner__container">
+    	{% for banner in banners %}
+      <div class="first-banner__item">
+      	<img src="{{ banner.image }}" alt="{{ banner.title }}" class="img-responsive first-banner__img" />
+      	<div class="first-banner__text-block">
+      		<span class="first-banner__title">{{ banner.title }}</span>
+      		<a class="first-banner__link" href="{{ banner.link }}">Shop now</a>
+      	</div>
+      </div>
+      {% endfor %}
+  </div>
+</div>
+{% endif %}
+
+{% if module == 1 %}
+
+<div class="second-banner">
+  <div class="second-banner__container">
+      <img class="second-banner__bg" src="./image/catalog/banners/2banner-bg.png" alt="">
+      {% for banner in banners %}
+      <div class="second-banner__text-section">
+        <div class="second-banner__text-block">
+          <span class="second-banner__title">{{ banner.title }}</span>
+          <span class="second-banner__subtitle">Features that go</span>
+        </div>
+        <div class="second-banner__text-block">
+          <span class="second-banner__title">{{ banner.description }}</span>
+          <a class="second-banner__link" href="{{ banner.link }}">Shop now</a>
+        </div>
+      </div>
+      <img src="{{ banner.image }}" alt="{{ banner.title }}" class="img-responsive second-banner__img" />
+      {% endfor %}
+  </div>
+</div>
+{% endif %}
+
+{% if module == 2 %}
+
+<div class="third-banner">
+  <div  class="third-banner__container">
+      {% for banner in banners %}
+      <a class="third-banner__item" href="{{ banner.link }}">
+        <div class="third-banner__text-block">
+          <span class="third-banner__title">{{ banner.title }}</span>
+          <span class="third-banner__subtitle">{{ banner.description }}</span>
+        </div>
+        <img src="{{ banner.image }}" alt="{{ banner.title }}" class="img-responsive third-banner__img" />
+      </a>
+      {% endfor %}
+  </div>
+</div>
+{% endif %}
+
+
+{% if module == 3 %}
+<div class="brands">
+  <h2 class="brands__title">Ours Brand</h2>
+  <div class="brands__container">
+      {% for banner in banners %}
+      <a class="brands__link" href="{{ banner.link }}">
+        <img src="{{ banner.image }}" alt="{{ banner.title }}" class="img-responsive brands__img" />
+      </a>
+      {% endfor %}
+  </div>
+</div>
+{% endif %}

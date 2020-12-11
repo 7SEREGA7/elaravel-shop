@@ -45,6 +45,11 @@
                     {% else %}
                     <a href="{{ sort_status }}">{{ column_status }}</a>
                     {% endif %}</td>
+                  <td class="text-left">{% if sort == 'template' %}
+                    <a href="{{ sort_template }}" class="{{ order|lower }}">{{ column_template }}</a>
+                    {% else %}
+                    <a href="{{ sort_template }}">{{ column_template }}</a>
+                    {% endif %}</td>
                   <td class="text-right">{{ column_action }}</td>
                 </tr>
               </thead>
@@ -59,6 +64,7 @@
                     {% endif %}</td>
                   <td class="text-left">{{ banner.name }}</td>
                   <td class="text-left">{{ banner.status }}</td>
+                  <td class="text-left">{{ banner.template }}</td>
                   <td class="text-right"><a href="{{ banner.edit }}" data-toggle="tooltip" title="{{ button_edit }}" class="btn btn-primary"><i class="fa fa-pencil"></i></a></td>
                 </tr>
                 {% endfor %}

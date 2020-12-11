@@ -1,0 +1,10 @@
+<div class="brands">
+  <h2 class="brands__title">Ours Brand</h2>
+  <div class="brands__container">
+      {% for banner in banners %}
+      <a class="brands__link" href="{{ banner.link }}">
+        <img src="{{ banner.image }}" alt="{{ banner.title }}" class="img-responsive brands__img" />
+      </a>
+      {% endfor %}
+  </div>
+</div>

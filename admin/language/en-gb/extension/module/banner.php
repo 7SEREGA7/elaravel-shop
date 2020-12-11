@@ -14,6 +14,7 @@ $_['entry_dimension']  = 'Dimension (W x H) and Resize Type';
 $_['entry_width']      = 'Width';
 $_['entry_height']     = 'Height';
 $_['entry_status']     = 'Status';
+$_['entry_template']   = 'Template';
 
 // Error
 $_['error_permission'] = 'Warning: You do not have permission to modify banner module!';

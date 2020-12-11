@@ -1,6 +1,8 @@
 <?php
 class ControllerExtensionModuleFeatured extends Controller {
 	public function index($setting) {
+		static $module = 0;
+
 		$this->load->language('extension/module/featured');
 
 		$this->load->model('catalog/product');
@@ -64,6 +66,8 @@ class ControllerExtensionModuleFeatured extends Controller {
 				}
 			}
 		}
+		
+		$data['module'] = $module++;
 
 		if ($data['products']) {
 			return $this->load->view('extension/module/featured', $data);

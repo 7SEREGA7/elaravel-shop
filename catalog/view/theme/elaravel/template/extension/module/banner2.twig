@@ -1,0 +1,18 @@
+<div class="second-banner">
+  <div class="second-banner__container">
+      <img class="second-banner__bg" src="./image/catalog/banners/2banner-bg.png" alt="">
+      {% for banner in banners %}
+      <div class="second-banner__text-section">
+        <div class="second-banner__text-block">
+          <span class="second-banner__title">{{ banner.title }}</span>
+          <span class="second-banner__subtitle">Features that go</span>
+        </div>
+        <div class="second-banner__text-block">
+          <span class="second-banner__title">{{ banner.description }}</span>
+          <a class="second-banner__link" href="{{ banner.link }}">Shop now</a>
+        </div>
+      </div>
+      <img src="{{ banner.image }}" alt="{{ banner.title }}" class="img-responsive second-banner__img" />
+      {% endfor %}
+  </div>
+</div>

@@ -12,14 +12,17 @@ $_['text_default']      = 'По умолчанию';
 // Column
 $_['column_name']       = 'Название баннера';
 $_['column_status']     = 'Статус';
+$_['column_template']   = 'Шаблон';
 $_['column_action']     = 'Действие';
 
 // Entry
 $_['entry_name']        = 'Название баннера';
 $_['entry_title']       = 'Заголовок';
+$_['entry_description'] = 'Описание';
 $_['entry_link']        = 'Ссылка';
 $_['entry_image']       = 'Изображение';
 $_['entry_status']      = 'Статус';
+$_['entry_template']    = 'Шаблон';
 $_['entry_sort_order']  = 'Порядок сортировки';
 
 // Error

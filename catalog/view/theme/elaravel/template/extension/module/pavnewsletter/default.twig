@@ -1,0 +1,31 @@
+<div class="pav-newsletter {{ prefix }} {{layout}} pav-newsletter newsletter" id="newsletter_{{ id }}" data-mode="{{ mode }}">
+	<form  method="post" action="{{ action }}" class="formNewLestter newsletter__form">
+		{% if layout == "layout1" %}
+		<div class="description-top newsletter__description">
+			{{ description }}
+		</div>
+		<div class="newsletter__form-control">
+			<input type="text" class="newsletter__input inputNew" {% if customer_email is not defined %} onblur="javascript:if(this.value=='')this.value='{{ default_input_text }}';" onfocus="javascript:if(this.value=='{{ default_input_text }}')this.value='';"{% endif %} value="{{ customer_email? customer_email : default_input_text }}" size="18" name="email">
+			<button type="submit" name="submitNewsletter" class="newsletter__btn">{{ button_subscribe }}</button>
+			<input type="hidden" value="1" name="action">
+			<div class="valid"></div>
+		</div>
+		{% else %}
+		<div class="description-top newsletter__description">
+			{{ description }}
+		</div>
+		<div class="newsletter__form-control">
+			<input type="text" class="newsletter__input inputNew" {% if customer_email is not defined %} onblur="javascript:if(this.value=='')this.value='{{ default_input_text }}';" onfocus="javascript:if(this.value=='{{ default_input_text }}')this.value='';"{% endif %} value="{{ customer_email? customer_email : default_input_text }}" size="18" name="email">
+			<button type="submit" name="submitNewsletter" class="newsletter__btn">{{ button_subscribe }}</button>
+			<input type="hidden" value="1" name="action">
+			<div class="valid"></div>
+		</div>
+		{% endif %}
+	</form>
+</div>
+
+<script><!--
+	$("#newsletter_{{ id }}").pavoNewsletter({
+		message: '{{ valid_email }}'
+});//.work(  '{{ valid_email }}' );
+--></script>

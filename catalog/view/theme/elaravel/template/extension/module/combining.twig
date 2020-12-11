@@ -1,0 +1,33 @@
+<div class="products-container">
+	{{ special }}
+	<div class="first-products">
+		<ul class="nav nav-tabs products__title-block">
+			<li class="nav-item active">
+				<a class="nav-link products__tabs" data-toggle="tab" href="#features">Features</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link products__tabs" data-toggle="tab" href="#onSale">On Sale</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link products__tabs" data-toggle="tab" href="#topRated">Top Rated</a>
+			</li>
+		</ul>
+		<div class="tab-content">
+			<div class="tab-pane fade active in" id="features">
+					<div class="products__products">
+				{{ features }}
+					</div>
+			</div>
+			<div class="tab-pane fade" id="onSale">
+					<div class="products__products">
+				{{ onSale }}
+					</div>
+			</div>
+			<div class="tab-pane fade" id="topRated">
+					<div class="products__products">
+				{{ topRated }}
+					</div>
+			</div>
+		</div>
+	</div>
+</div>

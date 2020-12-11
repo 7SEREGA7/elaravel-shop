@@ -176,6 +176,7 @@ class ControllerDesignBanner extends Controller {
 				'banner_id' => $result['banner_id'],
 				'name'      => $result['name'],
 				'status'    => ($result['status'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled')),
+				'template'  => $result['template'],
 				'edit'      => $this->url->link('design/banner/edit', 'user_token=' . $this->session->data['user_token'] . '&banner_id=' . $result['banner_id'] . $url, true)
 			);
 		}
@@ -214,6 +215,7 @@ class ControllerDesignBanner extends Controller {
 
 		$data['sort_name'] = $this->url->link('design/banner', 'user_token=' . $this->session->data['user_token'] . '&sort=name' . $url, true);
 		$data['sort_status'] = $this->url->link('design/banner', 'user_token=' . $this->session->data['user_token'] . '&sort=status' . $url, true);
+		$data['sort_template'] = $this->url->link('design/banner', 'user_token=' . $this->session->data['user_token'] . '&sort=template' . $url, true);
 
 		$url = '';
 
@@ -322,6 +324,14 @@ class ControllerDesignBanner extends Controller {
 			$data['status'] = true;
 		}
 
+		if (isset($this->request->post['template'])) {
+			$data['template'] = $this->request->post['template'];
+		} elseif (!empty($banner_info)) {
+			$data['template'] = $banner_info['template'];
+		} else {
+			$data['template'] = '';
+		}
+
 		$this->load->model('localisation/language');
 
 		$data['languages'] = $this->model_localisation_language->getLanguages();
@@ -350,6 +360,7 @@ class ControllerDesignBanner extends Controller {
 				
 				$data['banner_images'][$key][] = array(
 					'title'      => $banner_image['title'],
+					'description'      => $banner_image['description'],
 					'link'       => $banner_image['link'],
 					'image'      => $image,
 					'thumb'      => $this->model_tool_image->resize($thumb, 100, 100),

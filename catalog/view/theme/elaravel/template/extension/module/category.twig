@@ -1,0 +1,18 @@
+<ul class="footer__menu">
+  {% for category in categories %}
+  <li class="footer__menu-item">
+    <a href="{{ category.href }}" class="footer__menu-item-link">{{ category.name }}</a>
+    {% if category.children %}
+    <ul class="footer__menu footer__submenu">
+      {% for child in category.children %}
+      {% if child.category_id == child_id %}
+      <li class="footer__menu-item"><a href="{{ child.href }}" class="footer__menu-item-link">{{ child.name }}</a></li>
+      {% else %} 
+      <li class="footer__menu-item"><a href="{{ child.href }}" class="footer__menu-item-link">{{ child.name }}</a></li>
+      {% endif %}
+      {% endfor %}
+    </ul>
+    {% endif %}
+  </li>
+  {% endfor %}
+</ul>

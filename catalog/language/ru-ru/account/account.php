@@ -1,10 +1,10 @@
 <?php
 // Heading
-$_['heading_title']       = 'Личный Кабинет';
+$_['heading_title']       = 'My Account';
 
 // Text
-$_['text_account']        = 'Личный Кабинет';
-$_['text_my_account']     = 'Моя учетная запись';
+$_['text_account']        = 'My Account';
+$_['text_my_account']     = 'My Account';
 $_['text_my_orders']      = 'Мои заказы';
 $_['text_my_affiliate']   = 'Мой партнерский аккаунт';
 $_['text_my_newsletter']  = 'Подписка';

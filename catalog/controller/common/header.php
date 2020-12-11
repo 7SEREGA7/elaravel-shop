@@ -77,6 +77,40 @@ class ControllerCommonHeader extends Controller {
 		$data['cart'] = $this->load->controller('common/cart');
 		$data['menu'] = $this->load->controller('common/menu');
 
+
+		$data['language'];
+		$data['searchwithcategories'] = $this->load->controller('extension/module/searchwithcategories');
+
+
+		// Total price
+
+		$this->load->model('setting/extension');
+
+		$totals = array();
+		$total = 0;
+
+		$total_data = array(
+			'totals' => &$totals,
+			'total'  => &$total
+		);
+
+		$results = $this->model_setting_extension->getExtensions('total');
+
+		foreach ($results as $result) {
+			if ($this->config->get('total_' . $result['code'] . '_status')) {
+				$this->load->model('extension/total/' . $result['code']);
+				$this->{'model_extension_total_' . $result['code']}->getTotal($total_data);
+			}
+		}
+
+		$data['totals'] = array();
+
+		foreach ($totals as $total) {
+			$data['totals'][] = array(
+				'text'  => $this->currency->format($total['value'], $this->session->data['currency'])
+			);
+		}
+
 		return $this->load->view('common/header', $data);
 	}
 }

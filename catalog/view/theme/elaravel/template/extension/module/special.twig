@@ -1,0 +1,68 @@
+<div class="special">
+  {% for product in products %}
+  <div class="special__container">
+    <div class="special__offer">
+      <span class="special__offer-text">Special offer</span>
+      <div class="special__discount">
+        <p>Save</p>
+        <p>20%</p>
+      </div>
+    </div>
+    <div class="special__product">
+      <a href="{{ product.href }}"><img src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}" class="img-responsive special__img" /></a>
+      <a class="special__title" href="{{ product.href }}">{{ product.name }}</a>
+      {% if product.price %}
+      <div class="special__price">
+        {% if not product.special %}
+        {{ product.price }}
+        {% else %}
+        <span class="special__price-new">{{ product.special }}</span><span class="special__price-old">{{ product.price }}</span>
+        {% endif %}
+      </div>
+      {% endif %}
+    </div>
+    <div class="special__ends">
+      <p class="special__ends-title">Hurry Up! Offer ends in:</p>
+      <div class="special__ends-timer">
+        <div class="special__ends-timer-item">
+          <div class="special__ends-timer-value">
+            <span id="hours"></span>
+            <span class="colon">:</span>
+          </div>
+          <div class="special__ends-timer-text">Hours</div>
+        </div>
+        <div class="special__ends-timer-item">
+          <div class="special__ends-timer-value">
+            <span id="minutes"></span>
+            <span class="colon">:</span>
+          </div>
+          <div class="special__ends-timer-text">Mins</div>
+        </div>
+        <div class="special__ends-timer-item">
+          <div class="special__ends-timer-value" id="seconds"></div>
+          <div class="special__ends-timer-text">Secs</div>
+        </div>
+        {{ countdown }}
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+<script> 
+  var deadline = new Date("Jan 1, 2021 23:59:59").getTime(); 
+  var x = setInterval(function() { 
+    var now = new Date().getTime(); 
+    var t = deadline - now; 
+    var hours = Math.floor((t%(1000 * 60 * 60 * 24))/(1000 * 60 * 60)); 
+    var minutes = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60)); 
+    var seconds = Math.floor((t % (1000 * 60)) / 1000); 
+    document.getElementById("hours").innerHTML = hours;
+    document.getElementById("minutes").innerHTML = minutes;
+    document.getElementById("seconds").innerHTML = seconds;
+    if (t < 0) { 
+      clearInterval(x); 
+      document.getElementById("timer").innerHTML = "EXPIRED"; 
+    } 
+  }, 1000); 
+</script> 

@@ -1,0 +1,50 @@
+<div class="first-slider">
+  <div class="swiper-viewport">
+    <div id="slideshow{{ module }}" class="swiper-container">
+      <div class="swiper-wrapper"> 
+        {% for banner in banners %}
+        <div class="swiper-slide slide">
+          {% if banner.link %}
+          <div class="slide">
+            <a class="slide__link" href="{{ banner.link }}">
+              <img src="{{ banner.image }}" alt="{{ banner.title }}" class="img-responsive slide__img" />
+              <div class="slide__text-block">
+                <span class="buy-us">best buy us</span>
+                <span class="slide__title">{{ banner.title }}</span>
+                <button class="slide__shoping-btn">shoping now</button>
+              </div>
+            </a>
+          </div>
+          {% else %}
+          <div class="slide">
+            <img src="{{ banner.image }}" alt="{{ banner.title }}" class="img-responsive slide__img" />
+            <div class="slide__text-block">
+              <span class="buy-us">best buy us</span>
+              <span class="slide__title">{{ banner.title }}</span>
+              <button class="slide__shoping-btn">shoping now</button>
+            </div>
+          </div>
+          {% endif %}</div>
+        {% endfor %} </div>
+    </div>
+    <div class="swiper-pagination slideshow{{ module }}"></div>
+    <div class="swiper-pager">
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript"><!--
+$('#slideshow{{ module }}').swiper({
+	mode: 'horizontal',
+	slidesPerView: 1,
+	pagination: '.slideshow{{ module }}',
+	paginationClickable: true,
+	nextButton: '.swiper-button-next',
+    prevButton: '.swiper-button-prev',
+    spaceBetween: 30,
+	autoplay: 15000,
+    autoplayDisableOnInteraction: true,
+	loop: true
+});
+--></script>

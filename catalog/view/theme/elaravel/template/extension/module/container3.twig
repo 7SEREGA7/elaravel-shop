@@ -1,0 +1,85 @@
+<div class="third-products">
+	<div class="third-products__container">
+		<div class="third-products__heading">
+			<h3>New product</h3>
+			<div class="third-products__pagination">
+				<a id="view-all1" class="third-products__view-all">View all</a>
+				<div class="third-products__pagination-buttons">
+					<a href="#" class="third-products__btn third-products__prev-btn"><</a>
+					<a href="#" class="third-products__btn third-products__next-btn">></a>
+				</div>
+			</div>
+		</div>
+		<div class="third-products__slider">
+			<div class="third-products__all" id="all-products">
+				{{ newProduct }}
+			</div>
+			<div class="slick-sl" id="slick-sl1">
+				{{ newProduct }}
+			</div>
+		</div>
+	</div>
+	<div class="third-products__container">
+		<div class="third-products__heading">
+			<h3>Actions</h3>
+			<div class="third-products__pagination">
+				<a id="view-all2" class="third-products__view-all">View all</a>
+				<div class="third-products__pagination-buttons">
+					<a href="#" class="third-products__btn third-products__prev-btn1"><</a>
+					<a href="#" class="third-products__btn third-products__next-btn1">></a>
+				</div>
+			</div>
+		</div>
+		<div class="third-products__slider">
+			<div class="third-products__all" id="all-products2">
+				{{ actions }}
+			</div>
+			<div class="slick-sl1" id="slick-sl2">
+				{{ actions }}
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<script type="text/javascript">
+	$(document).on('ready', function() {
+		$('.slick-sl').slick({
+			infinite: true,
+			infinite: true,
+			slidesToShow: 2,
+			slidesToScroll: 2,
+			rows:2,
+			prevArrow: $('.third-products__prev-btn'),
+			nextArrow: $('.third-products__next-btn')
+		});
+		$('.slick-sl1').slick({
+			infinite: true,
+			infinite: true,
+			slidesToShow: 2,
+			slidesToScroll: 2,
+			rows:2,
+			prevArrow: $('.third-products__prev-btn1'),
+			nextArrow: $('.third-products__next-btn1')
+		});
+
+		const view1 = document.getElementById('view-all1');
+		const view2 = document.getElementById('view-all2');
+		let	products1 = document.getElementById('all-products');
+		let	products2 = document.getElementById('all-products2');
+		let	slider1 = document.getElementById('slick-sl1');
+		let	slider2 = document.getElementById('slick-sl2');
+
+		view1.onclick = function() {
+			products1.style.display = 'flex';;
+			slider1.style.display = 'none';
+		}
+
+		view2.onclick = function() {
+			products2.style.display = 'flex';;
+			slider2.style.display = 'none';
+		}
+
+	});
+</script>

@@ -1,0 +1,42 @@
+<footer class="footer">
+  <div class="footer__top">
+    <div class="footer__text-block">
+      <div class="footer__text-block-top">
+        <a class="footer__logo-link" href="{{ home }}"><img src="{{logo}}" alt="eLaravel"></a>
+        {{ footerText }}
+      </div>
+      <div class="footer__social">
+        {{ social }}
+      </div>
+    </div>
+    <div class="footer__categories">
+      <div class="footer__menu-title">Category</div>
+      <div class="footer__categories-container">
+        {{ category }}
+      </div>
+    </div>
+    <div class="footer__pages">
+      <div class="footer__menu-title">Page</div>
+      <nav class="footer__pages-container">
+        <ul class="footer__menu">
+          <li class="footer__menu-item"><a href="{{ account }}" class="footer__menu-item-link">{{ text_account }}</a></li>
+          <li class="footer__menu-item"><a href="{{ guestorder }}" class="footer__menu-item-link">{{ text_track_order }}</a></li>
+          <li class="footer__menu-item"><a href="{{ wishlist }}" class="footer__menu-item-link">{{ text_wishlist }}</a></li>
+          <li class="footer__menu-item"><a href="{{ costumerservice }}" class="footer__menu-item-link">{{ text_customer_service }}</a></li>
+          <li class="footer__menu-item"><a href="{{ return }}" class="footer__menu-item-link">{{ text_return }}</a></li>
+          <li class="footer__menu-item"><a href="{{ faqs }}" class="footer__menu-item-link">{{ text_faq }}</a></li>
+          <li class="footer__menu-item"><a href="{{ productsupport }}" class="footer__menu-item-link">{{ text_support }}</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+  
+  <div class="footer__bottom">
+    <div>{{ powered }}</div>
+  </div>
+</footer>
+{% for script in scripts %}
+<script src="{{ script }}" type="text/javascript"></script>
+{% endfor %}
+
+</body></html>

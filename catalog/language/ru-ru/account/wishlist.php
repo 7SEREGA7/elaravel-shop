@@ -1,9 +1,9 @@
 <?php
 // Heading
-$_['heading_title'] = 'Мои закладки';
+$_['heading_title'] = 'Wishlist';
 
 // Text
-$_['text_account']  = 'Личный Кабинет';
+$_['text_account']  = 'My Account';
 $_['text_instock']  = 'В наличии';
 $_['text_wishlist'] = 'Закладки (%s)';
 $_['text_login']    = 'Вы должны <a href="%s">выполнить вход</a> или <a href="%s">создать аккаунт</a> чтобы сохранить <a href="%s">%s</a> в свой <a href="%s">список закладок</a>!';

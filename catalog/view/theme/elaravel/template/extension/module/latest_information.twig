@@ -1,0 +1,22 @@
+<section class="information">
+  <div class="information__heading">
+    <h3>{{ heading_title }}</h3>
+  </div>
+  <div class="information__layout">
+  {% for information in informations %}
+    <div class="information__item">
+      {% if information.thumb %}
+      <a href="{{ information.href }}" class="information__img-link" ><img src="{{ information.thumb }}" alt="{{ information.title }}" title="{{ information.title }}" class="img-responsive information__img" /></a>
+      {% endif %}
+      <div class="information__text-block">
+        <a class="information__title" href="{{ information.href }}">{{ information.title }}</a>
+        <p class="information__description" >{{ information.description }}</p>
+      </div>
+      <a href="{{ information.href }}" class="information__btn" title="{{ text_read }}">{{ text_read }}</a>
+      {% if date %}
+      <div class="information__date"><span>{{ information.date_added }}</span></div>
+      {% endif %}
+    </div>
+  {% endfor %}
+  </div>
+</section>

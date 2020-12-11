@@ -1,0 +1,13 @@
+<div class="third-banner">
+  <div  class="third-banner__container">
+      {% for banner in banners %}
+      <a class="third-banner__item" href="{{ banner.link }}">
+        <div class="third-banner__text-block">
+          <span class="third-banner__title">{{ banner.title }}</span>
+          <span class="third-banner__subtitle">{{ banner.description }}</span>
+        </div>
+        <img src="{{ banner.image }}" alt="{{ banner.title }}" class="img-responsive third-banner__img" />
+      </a>
+      {% endfor %}
+  </div>
+</div>
